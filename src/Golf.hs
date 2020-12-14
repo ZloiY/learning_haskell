@@ -22,7 +22,7 @@ localMaxima _ = []
 -- result is representation of rows in histogram where the first array is the first row from the bottom,
 -- second array is the second row and etc.
 histogram :: [Integer] -> String
-histogram numbers = convertToString (reverse (createMatrix numbers []))
+histogram numbers = convertToString $ reverse $ createMatrix numbers []
     where
         createMatrix numbers subNums 
             | null (numbers \\ subNums)     = [] 

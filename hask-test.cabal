@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 547c530f20edb3a5210560a68c16c1723d1ac6ecc72090d362d508f9bbb1d953
+-- hash: 50216234d38663ac04b92e2f8208b847f804202364f80c7a06b97dd4f72b1cc1
 
 name:           hask-test
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       Golf
+      H4
       Hanoi
       Lib
       Log
