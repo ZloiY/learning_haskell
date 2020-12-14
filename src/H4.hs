@@ -20,6 +20,6 @@ fun1' :: [Integer] -> Integer
 fun1' = foldl (\acc val -> (val - 2) * acc) 1 . filter even
 
 fun2' :: Integer -> Integer
-fun2' n
-    | even n    = sum . takeWhile (/= 1) $ iterate (`div` 2) n
-    | otherwise = sum . takeWhile (/= 1) $ iterate (\n -> n * 3 + 1) n
+fun2' n = sum . filter even . takeWhile (> 1) $ iterate isEven n
+    where
+        isEven n = if even n then n `div` 2 else n * 3 + 1
