@@ -3,7 +3,12 @@ module H4 ( fun1'
     , fun1
     , fun2
     , foldTree
+    , xor
+    , map'
+    , sieveSundaram
     ) where
+
+import Data.List ( find, (\\) )
 
 fun1 :: [Integer] -> Integer
 fun1 []         = 1
@@ -24,6 +29,41 @@ fun2' :: Integer -> Integer
 fun2' n = sum . filter even . takeWhile (> 1) $ iterate isEven n
     where
         isEven n = if even n then n `div` 2 else n * 3 + 1
+
+xor :: [Bool] -> Bool
+xor = odd . foldr (\val acc -> if val then acc + 1 else acc) 0
+
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\val acc -> f val:acc) []
+
+myFold :: (a -> b -> a) -> a -> [b] -> a
+myFold f base = foldr (flip f) base . reverse
+
+cartProd :: [a] -> [b] -> [(a, b)]
+cartProd xs ys = [(x,y) | x <- xs, y <- ys]
+
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n = map (\x -> 2 * x + 1) . filterNumbers [1..n] $ notPrimeNumbers n 1 1 
+
+notPrimeNumbers :: Integer -> Integer -> Integer -> [Integer]
+notPrimeNumbers n i j
+    | i + j + 2 * i * j < n  = i + j + 2 * i * j:notPrimeNumbers n i (j + 1)
+    | i + j + 2 * i * j == n = i + j + 2 * i * j:notPrimeNumbers n (i + 1) (i + 1)
+    | otherwise              = []
+
+filterNumbers :: [Integer] -> [Integer] -> [Integer]
+filterNumbers (x:xs) numbers =
+    case find (==x) numbers of
+        Just _  -> filterNumbers xs numbers
+        Nothing -> x:filterNumbers xs numbers
+filterNumbers [] _           = []
+
+-- stole it from here https://github.com/bschwb/cis194-solutions/blob/master/04-higher-order/hw04.hs#L10
+sieveSundaram' :: Integer -> [Integer]
+sieveSundaram' n = map ((+1) . (*2)) $ [1..n] \\ sieve
+  where sieve = map (\(i, j) -> i + j + 2*i*j)
+                . filter (\(i, j) -> i + j + 2*i*j <= n)
+                $ cartProd [1..n] [1..n]
 
 data Tree a = Leaf 
             | Node Integer (Tree a) a (Tree a)
