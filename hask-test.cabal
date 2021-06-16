@@ -1,10 +1,10 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
+-- This file has been generated from package.yaml by hpack version 0.34.4.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 50216234d38663ac04b92e2f8208b847f804202364f80c7a06b97dd4f72b1cc1
+-- hash: b45b7ecf54453ea5c2a532354b269772def256a3d1075bf46686ee1344911117
 
 name:           hask-test
 version:        0.1.0.0
@@ -27,12 +27,16 @@ source-repository head
 
 library
   exposed-modules:
+      Calc
+      ExprT
       Golf
       H4
       Hanoi
       Lib
       Log
       LogAnalysis
+      Parser
+      StackVM
   other-modules:
       Paths_hask_test
   hs-source-dirs:
